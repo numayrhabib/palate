@@ -1,0 +1,287 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Palate Admin</title>
+<meta name="robots" content="noindex">
+<link rel="icon" href="../favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Hind+Siliguri:wght@400;600&display=swap">
+<style>
+:root{--coral:#FF9292;--ketchup:#CA1B20;--bright:#FFF0E6;--sauce:#FC6E35;--aub:#570807;
+  --bg:#FFF0E6;--surface:#fff;--ink:#2E0605;--muted:#8B5A53;--line:#F1D3C4;--good:#1D8A4E;--soft:#FFD9D3;
+  --display:"Bricolage Grotesque",system-ui,sans-serif;--body:"Hind Siliguri",system-ui,sans-serif}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);font-size:15px;line-height:1.5}
+button,input,select,textarea{font:inherit;color:inherit}
+button{cursor:pointer}
+:focus-visible{outline:2px solid var(--ketchup);outline-offset:2px}
+.top{background:var(--aub);color:var(--bright);padding:14px max(20px,env(safe-area-inset-left));display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.brand{font-family:var(--display);font-weight:800;font-size:24px;letter-spacing:-.02em;display:flex;align-items:flex-end;gap:2px}
+.brand svg{height:20px;width:16px}
+.brand small{font-family:var(--body);font-weight:400;font-size:13px;color:var(--coral);margin-left:10px;letter-spacing:0}
+.top .who{margin-left:auto;font-size:13px;color:var(--coral);display:flex;gap:10px;align-items:center}
+.top .who button{background:none;border:1px solid var(--coral);color:var(--bright);border-radius:999px;padding:4px 12px}
+nav{display:flex;gap:6px;padding:14px max(20px,env(safe-area-inset-left));overflow-x:auto;border-bottom:1px solid var(--line);background:var(--bg);position:sticky;top:0;z-index:2}
+nav button{border:0;background:var(--surface);border-radius:999px;padding:8px 16px;font-family:var(--display);font-weight:600;white-space:nowrap;color:var(--aub)}
+nav button[aria-current="page"]{background:var(--ketchup);color:var(--bright)}
+nav .n{display:inline-block;min-width:20px;margin-left:6px;padding:0 6px;border-radius:999px;background:var(--sauce);color:#fff;font-size:12px;text-align:center}
+main{max-width:1100px;margin:0 auto;padding:22px max(20px,env(safe-area-inset-left)) 60px}
+h1{font-family:var(--display);font-weight:800;font-size:30px;letter-spacing:-.02em;margin:0 0 4px;color:var(--aub)}
+h2{font-family:var(--display);font-weight:800;font-size:19px;margin:0;color:var(--aub)}
+.sub{color:var(--muted);margin:0 0 18px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:12px;margin-bottom:22px}
+.stat{background:var(--surface);border-radius:18px;padding:16px}
+.stat b{display:block;font-family:var(--display);font-weight:800;font-size:30px;color:var(--ketchup);font-variant-numeric:tabular-nums}
+.stat span{color:var(--muted);font-size:13px}
+.card{background:var(--surface);border-radius:18px;padding:16px;margin-bottom:12px;display:flex;gap:14px;align-items:flex-start;flex-wrap:wrap}
+.card .main{flex:1;min-width:240px}
+.card p{margin:6px 0}
+.meta{color:var(--muted);font-size:13px}
+.pill{display:inline-block;border-radius:999px;padding:2px 9px;font-size:11.5px;font-family:var(--display);font-weight:600;text-transform:uppercase;letter-spacing:.04em;background:var(--soft);color:var(--ketchup)}
+.pill.good{background:#DDF3E6;color:var(--good)} .pill.sauce{background:#FFE0D1;color:var(--sauce)} .pill.dark{background:var(--aub);color:var(--bright)}
+.actions{display:flex;gap:8px;flex-wrap:wrap}
+.btn{border:0;border-radius:999px;padding:8px 16px;background:var(--ketchup);color:var(--bright);font-family:var(--display);font-weight:600}
+.btn.ghost{background:none;border:1.5px solid var(--ketchup);color:var(--ketchup)}
+.btn.good{background:var(--good)} .btn:disabled{opacity:.5;cursor:default}
+.receipt{width:180px;max-width:100%;border-radius:12px;background:var(--line);aspect-ratio:3/4;object-fit:cover}
+.photo{width:120px;height:90px;border-radius:12px;object-fit:cover}
+.table-wrap{overflow-x:auto;background:var(--surface);border-radius:18px}
+table{border-collapse:collapse;width:100%;min-width:760px}
+th,td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:middle}
+th{font-family:var(--display);font-weight:600;font-size:12.5px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted)}
+td.num{font-variant-numeric:tabular-nums}
+input[type=text],input[type=email],input[type=url],select,textarea{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:8px 10px;width:100%}
+td select{width:auto}
+.form{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px;background:var(--surface);border-radius:18px;padding:16px;margin-bottom:18px}
+.form label{display:flex;flex-direction:column;gap:4px;font-size:13px;font-weight:600}
+.form .full{grid-column:1/-1}
+.empty{color:var(--muted);padding:30px 0;text-align:center}
+.login{max-width:420px;margin:60px auto;background:var(--surface);border-radius:24px;padding:28px;display:flex;flex-direction:column;gap:12px}
+.err{color:var(--ketchup)}
+.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:var(--aub);color:var(--bright);padding:10px 18px;border-radius:12px;z-index:9}
+.toolbar{display:flex;gap:10px;margin-bottom:14px;flex-wrap:wrap} .toolbar input{max-width:320px}
+@media (prefers-color-scheme: dark){:root{--bg:#1B0504;--surface:#2A0B09;--ink:#FFF0E6;--muted:#D2A79F;--line:#47170F;--soft:#4D1311}
+  h1,h2,nav button{color:var(--bright)} nav button{color:var(--bright)}}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="brand"><svg viewBox="0 0 58 72" aria-hidden="true"><rect width="15" height="72" rx="4" fill="#FFF0E6"/><circle cx="33" cy="25" r="25" fill="#CA1B20"/><circle cx="33" cy="25" r="14.5" fill="none" stroke="#FF9292" stroke-width="3.6"/></svg>alate<small>Admin</small></div>
+  <div class="who" id="who" hidden><span id="whoEmail"></span><button id="signOut">Sign out</button></div>
+</header>
+<nav id="nav" hidden></nav>
+<main id="main"><p class="empty">Loading…</p></main>
+<div class="toast" id="toast" role="status" hidden></div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
+<script>
+const SUPABASE_URL = "https://linfqjqmsdgeytvqlwvi.supabase.co";
+const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImxpbmZxanFtc2RnZXl0dnFsd3ZpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTI4Mjc1NzUsImV4cCI6MjEwODQwMzU3NX0.e5aW6Yll7ujKVpb7XkgxlyxKOKB-SXey4dLyYqtwtLs";
+const sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+const $ = (s) => document.querySelector(s);
+const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+const AREAS = { uttara: "Uttara", bashundhara: "Bashundhara", gulshan: "Gulshan", banani: "Banani", mohammadpur: "Mohammadpur", dhanmondi: "Dhanmondi", olddhaka: "Old Dhaka", other: "Elsewhere" };
+const must = ({ data, error }) => { if (error) throw error; return data; };
+const fmtDate = (d) => new Date(d).toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" });
+function toast(m) { const t = $("#toast"); t.textContent = m; t.hidden = false; clearTimeout(toast.h); toast.h = setTimeout(() => (t.hidden = true), 2500); }
+
+const TABS = [["overview", "Overview"], ["critics", "Critic applications"], ["verify", "Verify visits"], ["reports", "Reports"], ["restaurants", "Restaurants & awards"], ["people", "People"], ["episodes", "Where They Eat"]];
+let tab = "overview", counts = {}, me = null;
+
+async function guard() {
+  const { data } = await sb.auth.getSession();
+  const user = data.session?.user;
+  if (!user) return showLogin();
+  const p = must(await sb.from("profiles").select("role, display_name").eq("id", user.id).maybeSingle());
+  if (p?.role !== "admin") {
+    $("#main").innerHTML = `<div class="login"><h2>No admin access</h2><p>${esc(user.email)} isn't a Palate admin. Sign in with the admin account.</p><button class="btn" id="out2">Sign out</button></div>`;
+    $("#out2").onclick = () => sb.auth.signOut().then(showLogin);
+    return;
+  }
+  me = user;
+  $("#who").hidden = false; $("#whoEmail").textContent = user.email;
+  await loadCounts(); render();
+}
+
+function showLogin(step = 1, email = "") {
+  $("#nav").hidden = true; $("#who").hidden = true;
+  $("#main").innerHTML = step === 1 ? `
+    <form class="login" id="f1"><h1>Admin sign in</h1><p class="meta">We'll email you a sign-in code.</p>
+      <label for="email">Email</label><input id="email" type="email" required autocomplete="email">
+      <p class="err" id="err" hidden></p><button class="btn" type="submit">Send code</button></form>` : `
+    <form class="login" id="f2"><h1>Enter your code</h1><p class="meta">Sent to ${esc(email)}</p>
+      <label for="code">Code</label><input id="code" type="text" inputmode="numeric" autocomplete="one-time-code" required>
+      <p class="err" id="err" hidden></p><button class="btn" type="submit">Sign in</button></form>`;
+  const fail = (e) => { $("#err").textContent = e.message || "Something went wrong. Try again."; $("#err").hidden = false; };
+  if (step === 1) $("#f1").onsubmit = async (e) => { e.preventDefault(); const em = $("#email").value.trim().toLowerCase();
+    const { error } = await sb.auth.signInWithOtp({ email: em, options: { shouldCreateUser: false } }); error ? fail(error) : showLogin(2, em); };
+  else $("#f2").onsubmit = async (e) => { e.preventDefault();
+    const { error } = await sb.auth.verifyOtp({ email, token: $("#code").value.trim(), type: "email" }); error ? fail(error) : guard(); };
+}
+
+async function loadCounts() {
+  const c = async (q) => (await q).count || 0;
+  counts = {
+    critics: await c(sb.from("critic_applications").select("id", { count: "exact", head: true }).eq("status", "pending")),
+    verify: await c(sb.from("reviews").select("id", { count: "exact", head: true }).not("receipt_path", "is", null).eq("verified", false)),
+    reports: await c(sb.from("flags").select("id", { count: "exact", head: true }).eq("status", "open")),
+  };
+}
+
+function renderNav() {
+  const nav = $("#nav"); nav.hidden = false;
+  nav.innerHTML = TABS.map(([k, label]) => `<button data-tab="${k}" ${tab === k ? 'aria-current="page"' : ""}>${label}${counts[k] ? `<span class="n">${counts[k]}</span>` : ""}</button>`).join("");
+  nav.querySelectorAll("button").forEach((b) => (b.onclick = () => { tab = b.dataset.tab; render(); }));
+}
+
+async function render() {
+  renderNav();
+  const main = $("#main");
+  main.innerHTML = `<p class="empty">Loading…</p>`;
+  try { main.innerHTML = await VIEWS[tab](); BIND[tab]?.(); }
+  catch (e) { console.error(e); main.innerHTML = `<p class="empty">Couldn't load this: ${esc(e.message)}. <button class="btn ghost" id="retry">Try again</button></p>`; $("#retry").onclick = render; }
+}
+async function act(fn, msg) { try { await fn(); toast(msg); await loadCounts(); render(); } catch (e) { console.error(e); toast("That didn't work: " + e.message); } }
+
+const VIEWS = {
+  async overview() {
+    const c = async (t, f) => { let q = sb.from(t).select("*", { count: "exact", head: true }); if (f) q = f(q); return (await q).count || 0; };
+    const stats = [
+      ["Restaurants", await c("restaurants")], ["Reviews", await c("reviews")], ["People", await c("profiles")],
+      ["Critics", await c("profiles", (q) => q.eq("role", "critic"))], ["Club members", await c("profiles", (q) => q.gt("club_until", new Date().toISOString()))],
+      ["Verified visits", await c("reviews", (q) => q.eq("verified", true))],
+    ];
+    const demo = await c("restaurants", (q) => q.eq("is_demo", true));
+    return `<h1>Overview</h1><p class="sub">What needs your attention today.</p>
+      <div class="grid">${[["Critic applications", counts.critics, "critics"], ["Receipts to verify", counts.verify, "verify"], ["Open reports", counts.reports, "reports"]]
+        .map(([l, n, k]) => `<button class="stat" data-go="${k}" style="border:0;text-align:left"><b>${n}</b><span>${l}</span></button>`).join("")}</div>
+      <h2 style="margin-bottom:10px">Palate in numbers</h2>
+      <div class="grid">${stats.map(([l, n]) => `<div class="stat"><b>${n}</b><span>${l}</span></div>`).join("")}</div>
+      ${demo ? `<p class="meta">Includes ${demo} demo restaurants. Before launch, run <code>supabase/clear_demo.sql</code> to remove all demo data.</p>` : ""}`;
+  },
+  async critics() {
+    const rows = must(await sb.from("critic_applications").select("*").eq("status", "pending").order("created_at"));
+    if (!rows.length) return `<h1>Critic applications</h1><p class="empty">No applications waiting.</p>`;
+    const stats = must(await sb.from("profile_stats").select("*").in("id", rows.map((r) => r.user_id)));
+    const S = Object.fromEntries(stats.map((s) => [s.id, s]));
+    return `<h1>Critic applications</h1><p class="sub">Critic status is earned. Check their history before approving.</p>` + rows.map((a) => { const s = S[a.user_id] || {};
+      return `<div class="card"><div class="main"><h2>${esc(s.display_name)} <span class="meta">@${esc(s.username)}</span></h2>
+        <p class="meta">${s.review_count} reviews · ${s.photo_review_count} with photos · ${s.verified_count} verified · ${s.helpful_received} helpful votes · applied ${fmtDate(a.created_at)}</p>
+        <p>${esc(a.motivation)}</p></div>
+        <div class="actions"><button class="btn good" data-approve="${a.id}" data-user="${a.user_id}">Approve as critic</button><button class="btn ghost" data-reject="${a.id}">Decline</button></div></div>`; }).join("");
+  },
+  async verify() {
+    const rows = must(await sb.from("reviews").select("id, user_id, restaurant_id, dish_name, body, score, spent, receipt_path, created_at, profiles(display_name, username), restaurants(name, area)")
+      .not("receipt_path", "is", null).eq("verified", false).order("created_at").limit(30));
+    if (!rows.length) return `<h1>Verify visits</h1><p class="empty">No receipts waiting.</p>`;
+    const urls = await Promise.all(rows.map((r) => sb.storage.from("receipts").createSignedUrl(r.receipt_path, 600).then((x) => x.data?.signedUrl)));
+    return `<h1>Verify visits</h1><p class="sub">Check the receipt matches the restaurant and roughly the date. Receipts are private to the Palate team.</p>` + rows.map((r, i) => `
+      <div class="card">${urls[i] ? `<a href="${esc(urls[i])}" target="_blank" rel="noopener"><img class="receipt" src="${esc(urls[i])}" alt="Receipt"></a>` : `<div class="receipt"></div>`}
+        <div class="main"><h2>${esc(r.restaurants?.name)}</h2><p class="meta">${esc(r.profiles?.display_name)} · ${esc(r.dish_name || "")} · ৳${esc(r.spent ?? "–")} · ${fmtDate(r.created_at)}</p><p>${esc(r.body)}</p></div>
+        <div class="actions"><button class="btn good" data-verify="${r.id}">Verified visit</button><button class="btn ghost" data-noverify="${r.id}">Not a match</button></div></div>`).join("");
+  },
+  async reports() {
+    const rows = must(await sb.from("flags").select("id, reason, created_at, review_id, reviews(id, body, score, photo_urls, dish_name, profiles(display_name), restaurants(name))").eq("status", "open").order("created_at"));
+    if (!rows.length) return `<h1>Reports</h1><p class="empty">No open reports.</p>`;
+    return `<h1>Reports</h1><p class="sub">Reviews the community flagged.</p>` + rows.map((f) => { const r = f.reviews || {};
+      return `<div class="card">${r.photo_urls?.[0] ? `<img class="photo" src="${esc(r.photo_urls[0])}" alt="">` : ""}
+        <div class="main"><span class="pill">${esc(f.reason)}</span><h2 style="margin-top:6px">${esc(r.restaurants?.name)} · ${r.score ?? ""}</h2>
+        <p class="meta">by ${esc(r.profiles?.display_name)} · reported ${fmtDate(f.created_at)}</p><p>${esc(r.body)}</p></div>
+        <div class="actions"><button class="btn" data-remove="${f.review_id}" data-flag="${f.id}">Remove review</button><button class="btn ghost" data-dismiss="${f.id}">Keep review</button></div></div>`; }).join("");
+  },
+  async restaurants() {
+    const rows = must(await sb.from("restaurant_stats").select("*").order("score", { ascending: false, nullsFirst: false }));
+    return `<h1>Restaurants & awards</h1><p class="sub">Award Palate Guide plates and Taka Pick (great food under ৳1,000). Critic score is what plates should be based on.</p>
+      <div class="toolbar"><input type="text" id="rsearch" placeholder="Search restaurants" aria-label="Search restaurants"></div>
+      <div class="table-wrap"><table><thead><tr><th>Restaurant</th><th>Area</th><th>Palate</th><th>Critics</th><th>Reviews</th><th>Avg spend</th><th>Plates</th><th>Taka Pick</th><th></th></tr></thead><tbody>
+      ${rows.map((r) => `<tr data-name="${esc(r.name.toLowerCase())}"><td><b>${esc(r.name)}</b>${r.is_demo ? ' <span class="pill sauce">demo</span>' : ""}</td><td>${esc(AREAS[r.area] || r.area)}</td>
+        <td class="num">${r.score ?? "–"}</td><td class="num">${r.critic_score ?? "–"} <span class="meta">(${r.critic_count})</span></td><td class="num">${r.review_count}</td><td class="num">${r.avg_spent ? "৳" + r.avg_spent : r.avg_cost ? "৳" + r.avg_cost : "–"}</td>
+        <td><select data-plates="${r.id}" aria-label="Plates for ${esc(r.name)}">${[0, 1, 2, 3].map((n) => `<option value="${n}" ${r.plates === n ? "selected" : ""}>${n ? n + " plate" + (n > 1 ? "s" : "") : "None"}</option>`).join("")}</select></td>
+        <td><input type="checkbox" data-taka="${r.id}" ${r.taka_pick ? "checked" : ""} aria-label="Taka Pick for ${esc(r.name)}"></td>
+        <td><button class="btn ghost" data-delrest="${r.id}" data-name="${esc(r.name)}">Delete</button></td></tr>`).join("")}</tbody></table></div>`;
+  },
+  async people() {
+    const rows = must(await sb.from("profile_stats").select("*").order("review_count", { ascending: false }).limit(300));
+    return `<h1>People</h1><p class="sub">Change someone's role. Critics' scores count 3× and decide the Guide.</p>
+      <div class="toolbar"><input type="text" id="psearch" placeholder="Search by name or username" aria-label="Search people"></div>
+      <div class="table-wrap"><table><thead><tr><th>Name</th><th>Reviews</th><th>Photos</th><th>Verified</th><th>Helpful</th><th>Followers</th><th>Club</th><th>Role</th></tr></thead><tbody>
+      ${rows.map((p) => `<tr data-name="${esc((p.display_name + " " + p.username).toLowerCase())}"><td><b>${esc(p.display_name)}</b> <span class="meta">@${esc(p.username)}</span>${p.is_demo ? ' <span class="pill sauce">demo</span>' : ""}</td>
+        <td class="num">${p.review_count}</td><td class="num">${p.photo_review_count}</td><td class="num">${p.verified_count}</td><td class="num">${p.helpful_received}</td><td class="num">${p.followers}</td>
+        <td>${p.club ? '<span class="pill sauce">Club</span>' : ""}</td>
+        <td><select data-role="${p.id}" aria-label="Role for ${esc(p.display_name)}" ${p.id === me.id ? "disabled" : ""}>${["member", "critic", "admin"].map((r) => `<option ${p.role === r ? "selected" : ""}>${r}</option>`).join("")}</select></td></tr>`).join("")}
+      </tbody></table></div>`;
+  },
+  async episodes() {
+    const [eps, rests] = await Promise.all([
+      sb.from("episodes").select("*, restaurants(name)").order("published_at", { ascending: false }).then(must),
+      sb.from("restaurants").select("id, name").order("name").then(must),
+    ]);
+    return `<h1>Where They Eat</h1><p class="sub">Episodes appear at the top of the app feed and link to the guest's favourite restaurant.</p>
+      <form class="form" id="epform">
+        <label class="full">Title<input type="text" name="title" required maxlength="120"></label>
+        <label>Guest name<input type="text" name="guest_name" required maxlength="80"></label>
+        <label>Guest is a…<input type="text" name="guest_role" placeholder="Singer, cricketer…" maxlength="60"></label>
+        <label>Restaurant<select name="restaurant_id"><option value="">None</option>${rests.map((r) => `<option value="${r.id}">${esc(r.name)}</option>`).join("")}</select></label>
+        <label>Favourite dish<input type="text" name="favourite_dish" maxlength="80"></label>
+        <label>Thumbnail image URL<input type="url" name="thumbnail_url" placeholder="https://"></label>
+        <label>Video URL<input type="url" name="video_url" placeholder="YouTube or Facebook link"></label>
+        <div class="full"><button class="btn" type="submit">Add episode</button></div>
+      </form>
+      ${eps.map((e) => `<div class="card">${e.thumbnail_url ? `<img class="photo" src="${esc(e.thumbnail_url)}" alt="">` : ""}<div class="main"><h2>${esc(e.title)}</h2>
+        <p class="meta">${esc(e.guest_name)} · ${esc(e.guest_role || "")} · ${esc(e.restaurants?.name || "")} · ${fmtDate(e.published_at)} ${e.is_demo ? '<span class="pill sauce">demo</span>' : ""}</p></div>
+        <div class="actions"><button class="btn ghost" data-delep="${e.id}">Delete</button></div></div>`).join("") || '<p class="empty">No episodes yet.</p>'}`;
+  },
+};
+
+const on = (sel, fn) => document.querySelectorAll(sel).forEach((el) => fn(el));
+const filterRows = (input) => input && (input.oninput = () => { const q = input.value.toLowerCase(); on("tbody tr", (tr) => (tr.hidden = !tr.dataset.name.includes(q))); });
+const BIND = {
+  overview() { on("[data-go]", (b) => (b.onclick = () => { tab = b.dataset.go; render(); })); },
+  critics() {
+    on("[data-approve]", (b) => (b.onclick = () => act(async () => {
+      must(await sb.from("profiles").update({ role: "critic" }).eq("id", b.dataset.user));
+      must(await sb.from("critic_applications").update({ status: "approved", decided_at: new Date().toISOString() }).eq("id", b.dataset.approve));
+    }, "Approved as critic")));
+    on("[data-reject]", (b) => (b.onclick = () => act(async () => must(await sb.from("critic_applications").update({ status: "rejected", decided_at: new Date().toISOString() }).eq("id", b.dataset.reject)), "Application declined")));
+  },
+  verify() {
+    on("[data-verify]", (b) => (b.onclick = () => act(async () => must(await sb.from("reviews").update({ verified: true }).eq("id", b.dataset.verify)), "Marked as verified visit")));
+    on("[data-noverify]", (b) => (b.onclick = () => act(async () => must(await sb.from("reviews").update({ receipt_path: null }).eq("id", b.dataset.noverify)), "Receipt rejected")));
+  },
+  reports() {
+    on("[data-remove]", (b) => (b.onclick = () => act(async () => {
+      must(await sb.from("flags").update({ status: "resolved" }).eq("id", b.dataset.flag));
+      must(await sb.from("reviews").delete().eq("id", b.dataset.remove));
+    }, "Review removed")));
+    on("[data-dismiss]", (b) => (b.onclick = () => act(async () => must(await sb.from("flags").update({ status: "resolved" }).eq("id", b.dataset.dismiss)), "Report closed, review kept")));
+  },
+  restaurants() {
+    filterRows($("#rsearch"));
+    on("[data-plates]", (s) => (s.onchange = async () => { try { must(await sb.from("restaurants").update({ plates: +s.value }).eq("id", s.dataset.plates)); toast("Plates updated"); } catch (e) { toast("That didn't work: " + e.message); } }));
+    on("[data-taka]", (c) => (c.onchange = async () => { try { must(await sb.from("restaurants").update({ taka_pick: c.checked }).eq("id", c.dataset.taka)); toast(c.checked ? "Taka Pick awarded" : "Taka Pick removed"); } catch (e) { c.checked = !c.checked; toast("That didn't work: " + e.message); } }));
+    on("[data-delrest]", (b) => (b.onclick = () => {
+      if (b.dataset.confirm !== "1") { b.dataset.confirm = "1"; b.textContent = "Tap again to delete"; return; }
+      act(async () => must(await sb.from("restaurants").delete().eq("id", b.dataset.delrest)), "Restaurant deleted");
+    }));
+  },
+  people() {
+    filterRows($("#psearch"));
+    on("[data-role]", (s) => (s.onchange = async () => { try { must(await sb.from("profiles").update({ role: s.value }).eq("id", s.dataset.role)); toast("Role changed to " + s.value); } catch (e) { toast("That didn't work: " + e.message); } }));
+  },
+  episodes() {
+    $("#epform").onsubmit = (e) => { e.preventDefault(); const fd = Object.fromEntries(new FormData(e.target)); for (const k in fd) if (!fd[k]) fd[k] = null;
+      act(async () => must(await sb.from("episodes").insert(fd)), "Episode added"); };
+    on("[data-delep]", (b) => (b.onclick = () => {
+      if (b.dataset.confirm !== "1") { b.dataset.confirm = "1"; b.textContent = "Tap again to delete"; return; }
+      act(async () => must(await sb.from("episodes").delete().eq("id", b.dataset.delep)), "Episode deleted");
+    }));
+  },
+};
+
+$("#signOut").onclick = () => sb.auth.signOut().then(() => showLogin());
+guard();
+</script>
+</body>
+</html>

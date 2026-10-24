@@ -1,0 +1,52 @@
+{
+  "expo": {
+    "name": "Palate",
+    "slug": "palate",
+    "scheme": "palate",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "automatic",
+    "backgroundColor": "#FFF0E6",
+    "android": {
+      "package": "com.numayr.palate",
+      "versionCode": 1,
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#CA1B20"
+      },
+      "edgeToEdgeEnabled": true
+    },
+    "ios": {
+      "bundleIdentifier": "com.numayr.palate",
+      "supportsTablet": false
+    },
+    "web": {
+      "bundler": "metro",
+      "output": "single",
+      "favicon": "./assets/favicon.png"
+    },
+    "plugins": [
+      "expo-router",
+      "expo-font",
+      [
+        "expo-splash-screen",
+        {
+          "image": "./assets/splash-icon.png",
+          "imageWidth": 160,
+          "backgroundColor": "#CA1B20"
+        }
+      ],
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "Palate uses your photos so you can add food pictures and receipts to reviews.",
+          "cameraPermission": "Palate uses the camera so you can photograph your food and receipt."
+        }
+      ]
+    ],
+    "experiments": {
+      "baseUrl": "/palate/preview"
+    }
+  }
+}

@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Palate · Dhaka</title>
+<meta name="description" content="Honest restaurant reviews from Dhaka's food critics, and the Palate Guide.">
+<meta name="theme-color" content="#CA1B20">
+<link rel="icon" href="favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Hind+Siliguri:wght@400;600&display=swap">
+<style>
+:root{--coral:#FF9292;--ketchup:#CA1B20;--bright:#FFF0E6;--sauce:#FC6E35;--aub:#570807;
+  --display:"Bricolage Grotesque",system-ui,sans-serif;--body:"Hind Siliguri",system-ui,sans-serif}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bright);color:var(--aub);font-family:var(--body);font-size:16px;line-height:1.55}
+a{color:inherit}
+.hero{background:var(--ketchup);color:var(--bright);padding:28px max(20px,env(safe-area-inset-left)) 56px}
+.wrap{max-width:980px;margin:0 auto}
+.brand{display:flex;align-items:flex-end;gap:3px;font-family:var(--display);font-weight:800;font-size:30px;letter-spacing:-.03em}
+.brand svg{height:23px;width:19px}
+h1{font-family:var(--display);font-weight:800;font-size:clamp(44px,9vw,92px);line-height:.95;letter-spacing:-.04em;margin:48px 0 18px;max-width:11ch;text-wrap:balance}
+h1 em{font-style:normal;color:var(--coral)}
+.lead{font-size:18px;max-width:46ch;margin:0 0 28px}
+.cta{display:flex;gap:12px;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;gap:10px;background:var(--bright);color:var(--ketchup);font-family:var(--display);font-weight:800;font-size:17px;text-decoration:none;border-radius:999px;padding:14px 24px}
+.btn.alt{background:transparent;color:var(--bright);border:2px solid var(--coral)}
+.note{font-size:13.5px;color:var(--coral);margin-top:14px}
+.band{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
+.band div{padding:26px max(20px,env(safe-area-inset-left));}
+.band h2{font-family:var(--display);font-weight:800;font-size:24px;margin:0 0 6px;letter-spacing:-.02em}
+.band p{margin:0;max-width:34ch}
+.b1{background:var(--coral)} .b2{background:var(--sauce);color:#fff} .b3{background:var(--aub);color:var(--bright)}
+.steps{padding:40px max(20px,env(safe-area-inset-left)) 60px}
+.steps h2{font-family:var(--display);font-weight:800;font-size:28px;margin:0 0 14px;letter-spacing:-.02em}
+.steps ol{margin:0;padding-left:22px;max-width:62ch} .steps li{margin-bottom:8px}
+footer{padding:20px max(20px,env(safe-area-inset-left)) 40px;font-size:13.5px;opacity:.8}
+footer a{margin-right:16px}
+:focus-visible{outline:2px solid var(--aub);outline-offset:3px}
+</style>
+</head>
+<body>
+<section class="hero"><div class="wrap">
+  <div class="brand" aria-label="Palate"><svg viewBox="0 0 58 72" aria-hidden="true"><rect width="15" height="72" rx="4" fill="#FFF0E6"/><circle cx="33" cy="25" r="25" fill="#FF9292"/><circle cx="33" cy="25" r="14.5" fill="none" stroke="#CA1B20" stroke-width="3.6"/></svg>alate</div>
+  <h1>Where Dhaka <em>really</em> eats.</h1>
+  <p class="lead">Honest reviews from earned critics, rankings for every kacchi and fuchka in town, and the Palate Guide.</p>
+  <div class="cta">
+    <a class="btn" href="https://github.com/numayrhabib/palate/releases/latest/download/palate.apk">Download for Android</a>
+    <a class="btn alt" href="preview/">Try it in your browser</a>
+  </div>
+  <p class="note">Test build. Android will ask you to allow installs from your browser the first time.</p>
+</div></section>
+<section class="band">
+  <div class="b1"><h2>Critics are earned</h2><p>Nobody can pay to be a critic. Honest, detailed reviews earn it.</p></div>
+  <div class="b2"><h2>Taka Pick</h2><p>Great food under ৳1,000 gets the same spotlight as fine dining.</p></div>
+  <div class="b3"><h2>The Palate Guide</h2><p>One to three plates, confirmed by an anonymous visit. Never for sale.</p></div>
+</section>
+<section class="steps"><div class="wrap">
+  <h2>Installing the test app</h2>
+  <ol>
+    <li>On your Android phone, tap <b>Download for Android</b>.</li>
+    <li>Open the downloaded <b>palate.apk</b>. If Android asks, allow your browser to install apps.</li>
+    <li>Open Palate and sign in with your email. You'll get a 6-digit code.</li>
+  </ol>
+</div></section>
+<footer><div class="wrap"><a href="admin/">Admin</a><a href="https://github.com/numayrhabib/palate/releases">All builds</a></div></footer>
+</body>
+</html>
