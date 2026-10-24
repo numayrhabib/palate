@@ -54,6 +54,7 @@ export const FONTS = {
   displayMid: "BricolageGrotesque_600SemiBold",
   body: "HindSiliguri_400Regular",
   bodyBold: "HindSiliguri_600SemiBold",
+  bangla: "HindSiliguri_700Bold",
 };
 
 export function useTheme() {

@@ -120,21 +120,37 @@ export function ChipRow({ children }) {
 }
 
 /* ---------- Brand bits ---------- */
-export function PlateMark({ size = 28, stem, plate, ring }) {
+// The plate P. mirrored puts the plate left of the bar, so it reads as the Bangla letter প.
+export function PlateMark({ size = 28, stem, plate, ring, mirrored }) {
   const c = useTheme();
   return (
     <Svg width={size * 58 / 72} height={size} viewBox="0 0 58 72">
-      <Rect x="0" y="0" width="15" height="72" rx="4" fill={stem || c.heading} />
-      <Circle cx="33" cy="25" r="25" fill={plate || PALETTE.ketchup} />
-      <Circle cx="33" cy="25" r="14.5" fill="none" stroke={ring || PALETTE.coral} strokeWidth="3.6" />
+      <Rect x={mirrored ? 43 : 0} y="0" width="15" height="72" rx="4" fill={stem || c.heading} />
+      <Circle cx={mirrored ? 25 : 33} cy="25" r="25" fill={plate || PALETTE.ketchup} />
+      <Circle cx={mirrored ? 25 : 33} cy="25" r="14.5" fill="none" stroke={ring || PALETTE.coral} strokeWidth="3.6" />
     </Svg>
   );
 }
 
-export function Wordmark({ size = 30 }) {
+// "Palate" in English, "প্যালেট" in Bangla, with the plate mark standing in for the first letter.
+export function Wordmark({ size = 30, lang: forced }) {
   const c = useTheme();
+  const { lang } = useLang();
+  if ((forced || lang) === "bn") {
+    const s = size * 1.05;
+    return (
+      <View accessibilityLabel="প্যালেট" accessibilityRole="header">
+        <Text style={{ fontFamily: FONTS.bangla, fontSize: s, color: c.heading, includeFontPadding: false }}>
+          <Text style={{ color: "transparent" }}>প</Text>্যালেট
+        </Text>
+        <View style={{ position: "absolute", left: s * 0.01, top: s * 0.366 }} pointerEvents="none">
+          <PlateMark size={s * 0.75} mirrored />
+        </View>
+      </View>
+    );
+  }
   return (
-    <Row gap={1} style={{ alignItems: "flex-end" }}>
+    <Row gap={1} style={{ alignItems: "flex-end" }} accessibilityLabel="Palate">
       <PlateMark size={size * 0.74} />
       <Text style={{ fontFamily: FONTS.display, fontSize: size, lineHeight: size * 1.05, color: c.heading, letterSpacing: -1 }}>alate</Text>
     </Row>
