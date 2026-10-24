@@ -52,7 +52,7 @@ table{border-collapse:collapse;width:100%;min-width:760px}
 th,td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:middle}
 th{font-family:var(--display);font-weight:600;font-size:12.5px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted)}
 td.num{font-variant-numeric:tabular-nums}
-input[type=text],input[type=email],input[type=url],select,textarea{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:8px 10px;width:100%}
+input[type=text],input[type=email],input[type=url],input[type=password],select,textarea{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:8px 10px;width:100%}
 td select{width:auto}
 .form{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px;background:var(--surface);border-radius:18px;padding:16px;margin-bottom:18px}
 .form label{display:flex;flex-direction:column;gap:4px;font-size:13px;font-weight:600}
@@ -105,20 +105,18 @@ async function guard() {
   await loadCounts(); render();
 }
 
-function showLogin(step = 1, email = "") {
+function showLogin() {
   $("#nav").hidden = true; $("#who").hidden = true;
-  $("#main").innerHTML = step === 1 ? `
-    <form class="login" id="f1"><h1>Admin sign in</h1><p class="meta">We'll email you a sign-in code.</p>
+  $("#main").innerHTML = `
+    <form class="login" id="f1"><h1>Admin sign in</h1><p class="meta">Use the same email and password as your Palate app account.</p>
       <label for="email">Email</label><input id="email" type="email" required autocomplete="email">
-      <p class="err" id="err" hidden></p><button class="btn" type="submit">Send code</button></form>` : `
-    <form class="login" id="f2"><h1>Enter your code</h1><p class="meta">Sent to ${esc(email)}</p>
-      <label for="code">Code</label><input id="code" type="text" inputmode="numeric" autocomplete="one-time-code" required>
+      <label for="pw">Password</label><input id="pw" type="password" required autocomplete="current-password">
       <p class="err" id="err" hidden></p><button class="btn" type="submit">Sign in</button></form>`;
-  const fail = (e) => { $("#err").textContent = e.message || "Something went wrong. Try again."; $("#err").hidden = false; };
-  if (step === 1) $("#f1").onsubmit = async (e) => { e.preventDefault(); const em = $("#email").value.trim().toLowerCase();
-    const { error } = await sb.auth.signInWithOtp({ email: em, options: { shouldCreateUser: false } }); error ? fail(error) : showLogin(2, em); };
-  else $("#f2").onsubmit = async (e) => { e.preventDefault();
-    const { error } = await sb.auth.verifyOtp({ email, token: $("#code").value.trim(), type: "email" }); error ? fail(error) : guard(); };
+  $("#f1").onsubmit = async (e) => {
+    e.preventDefault();
+    const { error } = await sb.auth.signInWithPassword({ email: $("#email").value.trim().toLowerCase(), password: $("#pw").value });
+    if (error) { $("#err").textContent = error.message; $("#err").hidden = false; } else guard();
+  };
 }
 
 async function loadCounts() {

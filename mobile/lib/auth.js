@@ -34,6 +34,16 @@ export function AuthProvider({ children }) {
     profile,
     isAdmin: profile?.role === "admin",
     refreshProfile: () => loadProfile(session?.user),
+    signInPassword: async (email, password) => {
+      const { error } = await supabase.auth.signInWithPassword({ email, password });
+      if (error) throw error;
+    },
+    // Returns true when the account is ready straight away, false when the email must be confirmed first
+    signUpPassword: async (email, password) => {
+      const { data, error } = await supabase.auth.signUp({ email, password, options: { emailRedirectTo: "https://numayrhabib.github.io/palate/" } });
+      if (error) throw error;
+      return !!data.session;
+    },
     sendCode: async (email) => {
       const { error } = await supabase.auth.signInWithOtp({ email, options: { shouldCreateUser: true } });
       if (error) throw error;
