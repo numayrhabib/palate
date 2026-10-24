@@ -1,6 +1,6 @@
 // Caches the app shell so Palate opens instantly and installs on phones.
 // Data always comes from the network. Bump VERSION when the app files change.
-const VERSION = "palate-v1";
+const VERSION = "palate-v2";
 const SHELL = ["./", "index.html", "styles.css", "app.js", "data.js", "i18n.js", "config.js", "icon.svg", "icon-192.png", "manifest.webmanifest"];
 
 self.addEventListener("install", e => {
